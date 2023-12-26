@@ -106,7 +106,7 @@ async def create_responses():
                 kucoin_bid_price, kucoin_ask_price, kucoin_spread_percentage, kucoin_slippage_percentage = process_kucoin_response(kucoin_response)
                 binance_bid_price, binance_ask_price, binance_spread_percentage, binance_slippage_percentage = process_binance_response(binance_response)
 
-                if kucoin_bid_price is not None and kucoin_ask_price is not None and binance_bid_price is not None and binance_ask_price is not None:
+                if all(value is not None for value in ( kucoin_bid_price, kucoin_ask_price, binance_bid_price, binance_ask_price, kucoin_spread_percentage,kucoin_slippage_percentage, binance_spread_percentage, binance_slippage_percentage)):
                     timestamp = datetime.now()
                     store_data_in_sqlite(timestamp, market, kucoin_bid_price, kucoin_ask_price, kucoin_spread_percentage, kucoin_slippage_percentage, binance_bid_price, binance_ask_price, binance_spread_percentage, binance_slippage_percentage)
 
